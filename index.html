@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños Corazon</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f0f4;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .contenedor {
+            position: relative;
+            text-align: center;
+            transition: transform 0.5s ease;
+        }
+
+        .boton-corazon {
+            background: none;
+            border: none;
+            font-size: 60px;
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+            outline: none;
+            animation: latido 1.5s infinite alternate;
+            text-shadow: 0px 0px 10px rgba(255, 0, 0, 0.3);
+        }
+
+        @keyframes latido {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .boton-corazon.agrandado {
+            animation: none;
+            transform: scale(1.5);
+            font-size: 60px;
+        }
+
+        .mensaje {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s ease;
+            color: #333;
+            border: 2px solid #ff758c;
+            top: 120%;
+        }
+
+        .mensaje.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modo-mensaje .mensaje {
+            position: relative;
+            top: 0;
+            margin-top: 20px;
+        }
+
+        .mensaje h3 {
+            margin-top: 0;
+            color: #d4145a;
+            font-size: 18px;
+        }
+
+        .mensaje p {
+            margin-bottom: 10px;
+            text-align: left;
+            line-height: 1.4;
+            font-size: 15px;
+        }
+
+        .pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            border-radius: 50%;
+            background: rgba(255, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        .texto-pulsame {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #ff5c8d;
+            background-color: white;
+            padding: 4px 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .texto-pulsame.oculto {
+            opacity: 0;
+        }
+
+        .modo-mensaje {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: translateY(-20%);
+        }
+
+        .mensaje p:last-child {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenedor" id="contenedor">
+        <div class="texto-pulsame" id="textoPulsame">¡Púlsame!</div>
+        <button id="botonCorazon" class="boton-corazon">❤️</button>
+        <div class="pulse" id="efectoPulso"></div>
+        <div id="mensaje" class="mensaje">
+            <h3>¡Feliz Cumpleaños Mi Muñeca Hermosa!</h3>
+            <p>Faniola Hermosa Feliz cumpleaños, mi corazón, mi muñeca hermosa, mi gran razón. Hoy celebro tu vida con
+                sinceridad, agradeciendo todo lo que me das.</p>
+            <p>Cada encuentro contigo me llena de emoción, un sentimiento único, sin explicación. Aunque el tiempo
+                juntos aún sea corto, nuestro amor crece, y es lo que importa más pronto.</p>
+            <p>Gracias por hacerme sentir tan feliz, tu presencia es mi mayor matiz. Disfruta tu día, porque es para ti,
+                mi corazón, contigo siempre quiero estar aquí.</p>
+            <p>No tendré mucho que ofrecerte, pero lo que puedo siempre será auténtico y de corazón.</p>
+            <p>❤️❤️❤️</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const boton = document.getElementById('botonCorazon');
+            const mensaje = document.getElementById('mensaje');
+            const textoPulsame = document.getElementById('textoPulsame');
+            const efectoPulso = document.getElementById('efectoPulso');
+            const contenedor = document.getElementById('contenedor');
+
+            // Agregar efecto de pulso
+            let pulsoInterval = setInterval(function () {
+                const nuevoPulso = efectoPulso.cloneNode(true);
+                boton.parentNode.insertBefore(nuevoPulso, boton);
+
+                setTimeout(function () {
+                    nuevoPulso.remove();
+                }, 2000);
+            }, 2000);
+
+            boton.addEventListener('click', function () {
+                boton.classList.toggle('agrandado');
+                mensaje.classList.toggle('visible');
+                textoPulsame.classList.toggle('oculto');
+                contenedor.classList.toggle('modo-mensaje');
+
+                // Si el corazón está agrandado (mensaje visible)
+                if (boton.classList.contains('agrandado')) {
+                    // Detener el efecto de pulso
+                    clearInterval(pulsoInterval);
+
+                    // Efecto de vibración suave
+                    boton.animate([
+                        { transform: 'translateX(-2px)' },
+                        { transform: 'translateX(2px)' },
+                        { transform: 'translateX(-2px)' },
+                        { transform: 'scale(1.5)' }
+                    ], {
+                        duration: 300,
+                        iterations: 1
+                    });
+
+                    // Asegurarse de que la página se desplaza para mostrar todo el contenido
+                    setTimeout(function () {
+                        // Calcular si el mensaje está completamente visible
+                        const mensajeRect = mensaje.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+
+                        // Si parte del mensaje está fuera de la pantalla
+                        if (mensajeRect.bottom > windowHeight) {
+                            // Desplazar la página para mostrar el mensaje completo
+                            window.scrollBy({
+                                top: mensajeRect.bottom - windowHeight + 20,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 100);
+                } else {
+                    // Reiniciar el efecto de pulso
+                    pulsoInterval = setInterval(function () {
+                        const nuevoPulso = efectoPulso.cloneNode(true);
+                        boton.parentNode.insertBefore(nuevoPulso, boton);
+
+                        setTimeout(function () {
+                            nuevoPulso.remove();
+                        }, 2000);
+                    }, 2000);
+
+                    // Desplazar la página hacia arriba
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
